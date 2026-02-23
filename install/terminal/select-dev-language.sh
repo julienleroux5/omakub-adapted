@@ -13,9 +13,7 @@ if [[ -n "$languages" ]]; then
     case $language in
     R)
       sudo apt -y install --no-install-recommends software-properties-common dirmngr
-      wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-      sudo add-apt-repository -y "deb https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/"
-      sudo apt -y install --no-install-recommends R-base
+      sudo apt -y install --no-install-recommends r-base
       ;;
     Node.js)
       mise use --global node@lts
