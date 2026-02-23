@@ -32,6 +32,7 @@ sudo cp ~/.local/share/gnome-shell/extensions/blur-my-shell\@aunetx/schemas/org.
 sudo cp ~/.local/share/gnome-shell/extensions/space-bar\@luchrioh/schemas/org.gnome.shell.extensions.space-bar.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/tophat@fflewddur.github.io/schemas/org.gnome.shell.extensions.tophat.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/AlphabeticalAppGrid\@stuarthayhurst/schemas/org.gnome.shell.extensions.AlphabeticalAppGrid.gschema.xml /usr/share/glib-2.0/schemas/
+sudo cp ~/.local/share/gnome-shell/extensions/openbar\@neuromorph/schemas/org.gnome.shell.extensions.openbar.gschema.xml /usr/share/glib-2.0/schemas/
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 # Configure Tactile
@@ -79,3 +80,21 @@ gsettings set org.gnome.shell.extensions.tophat network-usage-unit bits
 
 # Configure AlphabeticalAppGrid
 gsettings set org.gnome.shell.extensions.alphabetical-app-grid folder-order-position 'end'
+
+# Configure OpenBar
+gsettings set org.gnome.shell.extensions.openbar bartype 'Islands'
+gsettings set org.gnome.shell.extensions.openbar height '24'
+gsettings set org.gnome.shell.extensions.openbar margin '0'
+gsettings set org.gnome.shell.extensions.openbar bgalpha-wmax '0.22'
+gsettings set org.gnome.shell.extensions.openbar margin-wmax '0'
+gsettings set org.gnome.shell.extensions.openbar buttonbg-wmax false
+gsettings set org.gnome.shell.extensions.openbar bgalpha '0'
+gsettings set org.gnome.shell.extensions.openbar isalpha '0.25'
+gsettings set org.gnome.shell.extensions.openbar halpha '0.25'
+gsettings set org.gnome.shell.extensions.openbar vpad '0.9'
+gsettings set org.gnome.shell.extensions.openbar bwidth '0'
+gsettings set org.gnome.shell.extensions.openbar bradius '12'
+gsettings set org.gnome.shell.extensions.openbar balpha '0.4'
+gsettings set org.gnome.shell.extensions.openbar neon false
+gsettings set org.gnome.shell.extensions.openbar menustyle false
+
