@@ -5,7 +5,7 @@ pipx install gnome-extensions-cli --system-site-packages
 
 # Turn off default Ubuntu extensions
 gnome-extensions disable tiling-assistant@ubuntu.com
-gnome-extensions disable ubuntu-appindicators@ubuntu.com
+# gnome-extensions disable ubuntu-appindicators@ubuntu.com
 gnome-extensions disable ubuntu-dock@ubuntu.com
 gnome-extensions disable ding@rastersoft.com
 
@@ -18,12 +18,16 @@ gext install just-perfection-desktop@just-perfection
 gext install blur-my-shell@aunetx
 gext install space-bar@luchrioh
 gext install undecorate@sun.wxg@gmail.com
-gext install tophat@fflewddur.github.io
+# gext install tophat@fflewddur.github.io
 gext install AlphabeticalAppGrid@stuarthayhurst
 gext install gnomebedtime@ionutbortis.gmail.com
 gext install desktop-cube@schneegans.github.com
 gext install hotedge@jonathan.jdoda.ca
 gext install openbar@neuromorph
+gext install system-monitor@gnome-shell-extensions.gcampax.github.com
+gext install unite@hardpixel.eu
+gext install windowgestures@extension.amarullz.com
+gext install focus-follows-workspace@christopher.luebbemeier.gmail.com
 
 # Compile gsettings schemas in order to be able to set them
 sudo cp ~/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas/org.gnome.shell.extensions.tactile.gschema.xml /usr/share/glib-2.0/schemas/
@@ -45,13 +49,13 @@ gsettings set org.gnome.shell.extensions.tactile row-1 1
 gsettings set org.gnome.shell.extensions.tactile gap-size 32
 
 # Configure Just Perfection
-gsettings set org.gnome.shell.extensions.just-perfection animation 2
+gsettings set org.gnome.shell.extensions.just-perfection animation 4
 gsettings set org.gnome.shell.extensions.just-perfection dash-app-running true
 gsettings set org.gnome.shell.extensions.just-perfection workspace true
 gsettings set org.gnome.shell.extensions.just-perfection workspace-popup false
 
 # Configure Blur My Shell
-gsettings set org.gnome.shell.extensions.blur-my-shell.appfolder blur false
+gsettings set org.gnome.shell.extensions.blur-my-shell.appfolder blur true
 gsettings set org.gnome.shell.extensions.blur-my-shell.lockscreen blur false
 gsettings set org.gnome.shell.extensions.blur-my-shell.screenshot blur false
 gsettings set org.gnome.shell.extensions.blur-my-shell.window-list blur false
@@ -66,9 +70,44 @@ gsettings set org.gnome.shell.extensions.blur-my-shell.dash-to-dock style-dash-t
 
 # Configure Space Bar
 gsettings set org.gnome.shell.extensions.space-bar.behavior smart-workspace-names false
+gsettings set org.gnome.shell.extensions.space-bar.behavior system-workspace-indicator false
 gsettings set org.gnome.shell.extensions.space-bar.shortcuts enable-activate-workspace-shortcuts false
 gsettings set org.gnome.shell.extensions.space-bar.shortcuts enable-move-to-workspace-shortcuts true
 gsettings set org.gnome.shell.extensions.space-bar.shortcuts open-menu "@as []"
+gsettings set org.gnome.shell.extensions.space-bar.appearance.application-styles '.space-bar {
+  -natural-hpadding: 12px;
+}
+.space-bar-workspace-label.active {
+  margin: 0 4px;
+  background-color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,1);
+  border-color: rgba(0,0,0,0);
+  font-weight: 700;
+  border-radius: 4px;
+  border-width: 0px;
+  padding: 1px 6px;
+}
+.space-bar-workspace-label.inactive {
+  margin: 0 4px;
+  background-color: rgba(0,0,0,0);
+  color: rgba(255,255,255,1);
+  border-color: rgba(0,0,0,0);
+  font-weight: 700;
+  border-radius: 4px;
+  border-width: 0px;
+  padding: 1px 6px;
+}
+
+.space-bar-workspace-label.inactive.empty {
+  margin: 0 4px;
+  background-color: rgba(0,0,0,0);
+  color: rgba(255,255,255,0.5);
+  border-color: rgba(0,0,0,0);
+  font-weight: 700;
+  border-radius: 4px;
+  border-width: 0px;
+  padding: 1px 6px;
+}'
 
 # Configure TopHat
 gsettings set org.gnome.shell.extensions.tophat show-icons false
@@ -97,4 +136,6 @@ gsettings set org.gnome.shell.extensions.openbar bradius '12'
 gsettings set org.gnome.shell.extensions.openbar balpha '0.4'
 gsettings set org.gnome.shell.extensions.openbar neon false
 gsettings set org.gnome.shell.extensions.openbar menustyle false
+gsettings set org.gnome.shell.extensions.openbar autohg-bar false
+gsettings set org.gnome.shell.extensions.openbar default-font 'Sans 10'
 
