@@ -74,40 +74,7 @@ gsettings set org.gnome.shell.extensions.space-bar.behavior system-workspace-ind
 gsettings set org.gnome.shell.extensions.space-bar.shortcuts enable-activate-workspace-shortcuts false
 gsettings set org.gnome.shell.extensions.space-bar.shortcuts enable-move-to-workspace-shortcuts true
 gsettings set org.gnome.shell.extensions.space-bar.shortcuts open-menu "@as []"
-gsettings set org.gnome.shell.extensions.space-bar.appearance.application-styles '.space-bar {
-  -natural-hpadding: 12px;
-}
-.space-bar-workspace-label.active {
-  margin: 0 4px;
-  background-color: rgba(255,255,255,0.3);
-  color: rgba(255,255,255,1);
-  border-color: rgba(0,0,0,0);
-  font-weight: 700;
-  border-radius: 4px;
-  border-width: 0px;
-  padding: 1px 6px;
-}
-.space-bar-workspace-label.inactive {
-  margin: 0 4px;
-  background-color: rgba(0,0,0,0);
-  color: rgba(255,255,255,1);
-  border-color: rgba(0,0,0,0);
-  font-weight: 700;
-  border-radius: 4px;
-  border-width: 0px;
-  padding: 1px 6px;
-}
-
-.space-bar-workspace-label.inactive.empty {
-  margin: 0 4px;
-  background-color: rgba(0,0,0,0);
-  color: rgba(255,255,255,0.5);
-  border-color: rgba(0,0,0,0);
-  font-weight: 700;
-  border-radius: 4px;
-  border-width: 0px;
-  padding: 1px 6px;
-}'
+gsettings set org.gnome.shell.extensions.space-bar.appearance application-styles '.space-bar{\n -natural-hpadding:12px;\n}\n\n.space-bar-workspace-label.active{\n  margin: 0 4px;\n  background-color: rgba(255,255,255,0.3);\n  color: rgba(255,255,255,1);\n  border-color: rgba(0,0,0,0);\n  font-weight: 700;\n  border-radius: 4px;\n  border-width: 0px;\n  padding: 1px 6px;\n}\n\n.space-bar-workspace-label.inactive{\n  margin: 0 4px;\n  background-color: rgba(0,0,0,0);\n  color: rgba(255,255,255,1);\n  border-color: rgba(0,0,0,0);\n  font-weight: 700;\n  border-radius: 4px;\n  border-width: 0px;\n  padding: 1px 6px;\n}\n\n.space-bar-workspace-label.inactive.empty{\n  margin: 0 4px;\n  background-color: rgba(0,0,0,0);\n  color: rgba(255,255,255,0.5);\n  border-color:rgba(0,0,0,0);\n  font-weight:700;\n  border-radius: 4px;\n  border-width: 0px;\n  padding: 1px 6px;\n}'
 
 # Configure TopHat
 gsettings set org.gnome.shell.extensions.tophat show-icons false

@@ -15,9 +15,9 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys next "['<Shift>AudioP
 # Full-screen with title/navigation bar
 gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Shift>F11']"
 
-# Use 6 fixed workspaces instead of dynamic mode
-gsettings set org.gnome.mutter dynamic-workspaces false
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 6
+# Use 4 fixed workspaces instead of dynamic mode
+gsettings set org.gnome.mutter dynamic-workspaces true
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 
 # Disable the hotkeys in the Dash to Dock extension (most likely culprit)
 gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
