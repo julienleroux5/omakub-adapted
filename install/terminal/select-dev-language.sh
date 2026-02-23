@@ -4,17 +4,18 @@
 if [[ -v OMAKUB_FIRST_RUN_LANGUAGES ]]; then
   languages=$OMAKUB_FIRST_RUN_LANGUAGES
 else
-  AVAILABLE_LANGUAGES=("Ruby on Rails" "Node.js" "Go" "PHP" "Python" "Elixir" "Rust" "Java")
+  AVAILABLE_LANGUAGES=("R" "Node.js" "Go" "PHP" "Python" "Elixir" "Rust" "Java")
   languages=$(gum choose "${AVAILABLE_LANGUAGES[@]}" --no-limit --height 10 --header "Select programming languages")
 fi
 
 if [[ -n "$languages" ]]; then
   for language in $languages; do
     case $language in
-    Ruby)
-      mise use --global ruby@latest
-      mise settings add idiomatic_version_file_enable_tools ruby
-      mise x ruby -- gem install rails --no-document
+    R)
+      sudo apt -y install --no-install-recommends software-properties-common dirmngr
+      wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+      sudo add-apt-repository -y "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+      sudo apt -y install --no-install-recommends R-base
       ;;
     Node.js)
       mise use --global node@lts
