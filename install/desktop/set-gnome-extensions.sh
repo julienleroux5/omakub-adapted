@@ -25,21 +25,21 @@ gext install desktop-cube@schneegans.github.com
 gext install hotedge@jonathan.jdoda.ca
 gext install openbar@neuromorph
 gext install system-monitor@gnome-shell-extensions.gcampax.github.com
-gext install unite@hardpixel.eu
+# gext install unite@hardpixel.eu
 gext install windowgestures@extension.amarullz.com
 gext install focus-follows-workspace@christopher.luebbemeier.gmail.com
 
 ## install Unite
 sudo apt install -y x11-utils
-wget -qO- https://github.com/hardpixel/unite-shell/releases/download/v82/unite-v82.zip
-gext install --force unite-v82.zip
+wget https://github.com/hardpixel/unite-shell/releases/download/v84/unite-v84.zip
+gnome-extensions install --force unite-v84.zip
 
 # Compile gsettings schemas in order to be able to set them
 sudo cp ~/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas/org.gnome.shell.extensions.tactile.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/just-perfection-desktop\@just-perfection/schemas/org.gnome.shell.extensions.just-perfection.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/blur-my-shell\@aunetx/schemas/org.gnome.shell.extensions.blur-my-shell.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/space-bar\@luchrioh/schemas/org.gnome.shell.extensions.space-bar.gschema.xml /usr/share/glib-2.0/schemas/
-sudo cp ~/.local/share/gnome-shell/extensions/tophat@fflewddur.github.io/schemas/org.gnome.shell.extensions.tophat.gschema.xml /usr/share/glib-2.0/schemas/
+# sudo cp ~/.local/share/gnome-shell/extensions/tophat@fflewddur.github.io/schemas/org.gnome.shell.extensions.tophat.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/AlphabeticalAppGrid\@stuarthayhurst/schemas/org.gnome.shell.extensions.AlphabeticalAppGrid.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/openbar\@neuromorph/schemas/org.gnome.shell.extensions.openbar.gschema.xml /usr/share/glib-2.0/schemas/
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
@@ -82,12 +82,12 @@ gsettings set org.gnome.shell.extensions.space-bar.shortcuts open-menu "@as []"
 gsettings set org.gnome.shell.extensions.space-bar.appearance application-styles '.space-bar{\n -natural-hpadding:12px;\n}\n\n.space-bar-workspace-label.active{\n  margin: 0 4px;\n  background-color: rgba(255,255,255,0.3);\n  color: rgba(255,255,255,1);\n  border-color: rgba(0,0,0,0);\n  font-weight: 700;\n  border-radius: 4px;\n  border-width: 0px;\n  padding: 1px 6px;\n}\n\n.space-bar-workspace-label.inactive{\n  margin: 0 4px;\n  background-color: rgba(0,0,0,0);\n  color: rgba(255,255,255,1);\n  border-color: rgba(0,0,0,0);\n  font-weight: 700;\n  border-radius: 4px;\n  border-width: 0px;\n  padding: 1px 6px;\n}\n\n.space-bar-workspace-label.inactive.empty{\n  margin: 0 4px;\n  background-color: rgba(0,0,0,0);\n  color: rgba(255,255,255,0.5);\n  border-color:rgba(0,0,0,0);\n  font-weight:700;\n  border-radius: 4px;\n  border-width: 0px;\n  padding: 1px 6px;\n}'
 
 # Configure TopHat
-gsettings set org.gnome.shell.extensions.tophat show-icons false
-gsettings set org.gnome.shell.extensions.tophat show-cpu false
-gsettings set org.gnome.shell.extensions.tophat show-disk false
-gsettings set org.gnome.shell.extensions.tophat show-mem false
-gsettings set org.gnome.shell.extensions.tophat show-fs false
-gsettings set org.gnome.shell.extensions.tophat network-usage-unit bits
+# gsettings set org.gnome.shell.extensions.tophat show-icons false
+# gsettings set org.gnome.shell.extensions.tophat show-cpu false
+# gsettings set org.gnome.shell.extensions.tophat show-disk false
+# gsettings set org.gnome.shell.extensions.tophat show-mem false
+# gsettings set org.gnome.shell.extensions.tophat show-fs false
+# gsettings set org.gnome.shell.extensions.tophat network-usage-unit bits
 
 # Configure AlphabeticalAppGrid
 gsettings set org.gnome.shell.extensions.alphabetical-app-grid folder-order-position 'end'
