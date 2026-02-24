@@ -33,6 +33,7 @@ gext install focus-follows-workspace@christopher.luebbemeier.gmail.com
 sudo apt install -y x11-utils
 wget https://github.com/hardpixel/unite-shell/releases/download/v84/unite-v84.zip
 gnome-extensions install --force unite-v84.zip
+# needs reboot to show up in extensions list
 
 # Compile gsettings schemas in order to be able to set them
 sudo cp ~/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas/org.gnome.shell.extensions.tactile.gschema.xml /usr/share/glib-2.0/schemas/
@@ -42,6 +43,7 @@ sudo cp ~/.local/share/gnome-shell/extensions/space-bar\@luchrioh/schemas/org.gn
 # sudo cp ~/.local/share/gnome-shell/extensions/tophat@fflewddur.github.io/schemas/org.gnome.shell.extensions.tophat.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/AlphabeticalAppGrid\@stuarthayhurst/schemas/org.gnome.shell.extensions.AlphabeticalAppGrid.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/openbar\@neuromorph/schemas/org.gnome.shell.extensions.openbar.gschema.xml /usr/share/glib-2.0/schemas/
+sudo cp ~/.local/share/gnome-shell/extensions/unite\@harpixel.eu/schemas/org.gnome.shell.extensions.unite.gschema.xml /usr/share/glib-2.0/schemas/
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 # Configure Tactile
@@ -111,3 +113,7 @@ gsettings set org.gnome.shell.extensions.openbar menustyle false
 gsettings set org.gnome.shell.extensions.openbar autohg-bar false
 gsettings set org.gnome.shell.extensions.openbar default-font 'Sans 10'
 
+# Configure Unite
+gsettings set org.gnome.shell.extensions.unite extend-left-box false
+gsettings set org.gnome.shell.extensions.unite show-desktop-name false
+gsettings set org.gnome.shell.extensions.unite window-buttons-placement 'left'
