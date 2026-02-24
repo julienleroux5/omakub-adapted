@@ -43,7 +43,7 @@ sudo cp ~/.local/share/gnome-shell/extensions/space-bar\@luchrioh/schemas/org.gn
 # sudo cp ~/.local/share/gnome-shell/extensions/tophat@fflewddur.github.io/schemas/org.gnome.shell.extensions.tophat.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/AlphabeticalAppGrid\@stuarthayhurst/schemas/org.gnome.shell.extensions.AlphabeticalAppGrid.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/openbar\@neuromorph/schemas/org.gnome.shell.extensions.openbar.gschema.xml /usr/share/glib-2.0/schemas/
-sudo cp ~/.local/share/gnome-shell/extensions/unite\@harpixel.eu/schemas/org.gnome.shell.extensions.unite.gschema.xml /usr/share/glib-2.0/schemas/
+sudo cp ~/.local/share/gnome-shell/extensions/unite\@hardpixel.eu/schemas/org.gnome.shell.extensions.unite.gschema.xml /usr/share/glib-2.0/schemas/
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 # Configure Tactile

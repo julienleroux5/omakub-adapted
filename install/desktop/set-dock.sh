@@ -2,16 +2,16 @@
 
 # Favorite apps for dock
 apps=(
-	"Thunderbird.desktop"
-	"Firefox.desktop"
+	"thunderbird_thunderbird.desktop"
+	"firefox_firefox.desktop"
 	"org.gnome.Nautilus.desktop"
 	"rstudio.desktop"
 	"positron.desktop"
 	"Alacritty.desktop"
 	"Neovim.desktop"
 	"code.desktop"
-	"pinta_pinta.desktop"
-	"md.obsidian.Obsidian.desktop"
+	"teams-for-linux.desktop"
+	"obsidian.desktop"
 	"zotero.desktop"
 	"Activity.desktop"
 	"Docker.desktop"
@@ -29,6 +29,7 @@ desktop_dirs=(
 	"/usr/share/applications"
 	"/usr/local/share/applications"
 	"$HOME/.local/share/applications"
+	/var/lib/snapd/desktop/applications/
 )
 
 # Check if a .desktop file exists for each app

@@ -11,4 +11,14 @@ fi
 sudo apt update
 sudo apt install -y teams-for-linux
 
-# 
+# zotero
+wget -O zotero.tar.xz "https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64"
+mkdir -p ~/Apps
+tar -xvf zotero.tar.xz -C ~/Apps/
+bash ~/Apps/Zotero_linux-x86_64/set_launcher_icon
+ln -s ~/Apps/Zotero_linux-x86_64/zotero.desktop ~/.local/share/applications/zotero.desktop
+
+
+# joplin
+
+# smartgit
