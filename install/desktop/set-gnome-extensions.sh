@@ -29,6 +29,11 @@ gext install unite@hardpixel.eu
 gext install windowgestures@extension.amarullz.com
 gext install focus-follows-workspace@christopher.luebbemeier.gmail.com
 
+## install Unite
+sudo apt install -y x11-utils
+wget -qO- https://github.com/hardpixel/unite-shell/releases/download/v82/unite-v82.zip
+gext install --force unite-v82.zip
+
 # Compile gsettings schemas in order to be able to set them
 sudo cp ~/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas/org.gnome.shell.extensions.tactile.gschema.xml /usr/share/glib-2.0/schemas/
 sudo cp ~/.local/share/gnome-shell/extensions/just-perfection-desktop\@just-perfection/schemas/org.gnome.shell.extensions.just-perfection.gschema.xml /usr/share/glib-2.0/schemas/

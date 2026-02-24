@@ -2,8 +2,8 @@
 
 # Favorite apps for dock
 apps=(
-	"thunderbird.desktop"
-	"firefox.desktop"
+	"Thunderbird.desktop"
+	"Firefox.desktop"
 	"org.gnome.Nautilus.desktop"
 	"rstudio.desktop"
 	"positron.desktop"
