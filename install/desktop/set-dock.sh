@@ -5,18 +5,18 @@ apps=(
 	"thunderbird_thunderbird.desktop"
 	"firefox_firefox.desktop"
 	"org.gnome.Nautilus.desktop"
-	"rstudio.desktop"
-	"positron.desktop"
 	"Alacritty.desktop"
 	"Neovim.desktop"
+	"rstudio.desktop"
+	"positron.desktop"
 	"code.desktop"
 	"teams-for-linux.desktop"
 	"obsidian.desktop"
 	"zotero.desktop"
+	"joplin.desktop"
 	"Activity.desktop"
 	"Docker.desktop"
 	"org.gnome.Settings.desktop"
-
 	"localsend_app.desktop"
 )
 
