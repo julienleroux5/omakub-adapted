@@ -12,13 +12,24 @@ sudo apt update
 sudo apt install -y teams-for-linux
 
 # zotero
+cd /tmp
 wget -O zotero.tar.xz "https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64"
 mkdir -p ~/Apps
 tar -xvf zotero.tar.xz -C ~/Apps/
 bash ~/Apps/Zotero_linux-x86_64/set_launcher_icon
 ln -s ~/Apps/Zotero_linux-x86_64/zotero.desktop ~/.local/share/applications/zotero.desktop
-
+rm zotero.tar.xz
+cd -
 
 # joplin
 
 # smartgit
+
+cd /tmp
+wget -O smartgit.tar.gz "https://download.smartgit.dev/smartgit/smartgit-26_1-latest-linux-amd64.tar.gz"
+mkdir -p ~/Apps
+tar -xvf smartgit.tar.gz -C ~/Apps/
+bash ~/Apps/smartgit/bin/add-menuitem.sh
+rm smartgit.tar.gz
+cd -
+
