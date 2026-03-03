@@ -17,7 +17,7 @@ wget -O zotero.tar.xz "https://www.zotero.org/download/client/dl?channel=release
 mkdir -p ~/Apps
 tar -xvf zotero.tar.xz -C ~/Apps/
 bash ~/Apps/Zotero_linux-x86_64/set_launcher_icon
-ln -s ~/Apps/Zotero_linux-x86_64/zotero.desktop ~/.local/share/applications/zotero.desktop
+ln -sf ~/Apps/Zotero_linux-x86_64/zotero.desktop ~/.local/share/applications/zotero.desktop
 rm zotero.tar.xz
 cd -
 
