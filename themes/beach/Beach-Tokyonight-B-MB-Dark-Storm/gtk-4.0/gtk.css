@@ -5756,8 +5756,8 @@ popover.entry-completion > contents {
   padding: 3px 9px;
 }
 
-.nautilus-window .nautilus-grid-view listview.view > row.activatable:nth-child(odd):not(:disabled),
-.nautilus-window .nautilus-list-view listview.view > row.activatable:nth-child(odd):not(:disabled) {
+.nautilus-window .nautilus-grid-view listview.view > row.activatable:nth-child(odd):not(:disabled):not(:selected),
+.nautilus-window .nautilus-list-view listview.view > row.activatable:nth-child(odd):not(:disabled):not(:selected) {
   background-image: image(alpha(currentColor, 0.03));
 }
 
