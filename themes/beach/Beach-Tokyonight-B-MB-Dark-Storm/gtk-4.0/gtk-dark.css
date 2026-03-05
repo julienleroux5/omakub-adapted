@@ -2230,6 +2230,14 @@ headerbar.default-decoration windowcontrols > button {
   /* } */
 }
 
+/* Keep titlebar buttons compact even when `default-decoration` is absent. */
+headerbar windowcontrols > button {
+  min-width: 16px;
+  min-height: 16px;
+  margin: 0 4px;
+  padding: 0;
+}
+
 headerbar.default-decoration windowcontrols menubutton button {
   min-height: 20px;
   min-width: 20px;

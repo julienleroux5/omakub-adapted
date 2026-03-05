@@ -19,6 +19,11 @@ if [ -n "$THEME" ] && [ "$THEME" != "<<-back" ]; then
   fi
 
   source $OMAKUB_PATH/themes/$THEME/gnome.sh
+
+  if [ -f "$OMAKUB_PATH/themes/$THEME/install.sh" ]; then
+    bash "$OMAKUB_PATH/themes/$THEME/install.sh"
+  fi
+
   source $OMAKUB_PATH/themes/$THEME/tophat.sh
   source $OMAKUB_PATH/themes/$THEME/vscode.sh
 
