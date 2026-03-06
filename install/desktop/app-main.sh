@@ -33,3 +33,13 @@ bash ~/Apps/smartgit/bin/add-menuitem.sh
 rm smartgit.tar.gz
 cd -
 
+# couleur color picker
+
+# Add the GPG key
+curl -fsSL https://apt.gnomestarterpack.com/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/gnomestarterpack.gpg
+# Add the repository
+echo "deb [signed-by=/usr/share/keyrings/gnomestarterpack.gpg arch=amd64] https://apt.gnomestarterpack.com questy main" | sudo tee /etc/apt/sources.list.d/gnomestarterpack.list
+
+# Update package list
+sudo apt update
+sudo apt install -y gnomestarterpack-couleur
