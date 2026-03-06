@@ -31,8 +31,15 @@ gext install focus-follows-workspace@christopher.luebbemeier.gmail.com
 
 ## install Unite
 sudo apt install -y x11-utils
-wget https://github.com/hardpixel/unite-shell/releases/download/v84/unite-v84.zip
-gnome-extensions install --force unite-v84.zip
+UNITE_UUID="unite@hardpixel.eu"
+UNITE_ZIP="/tmp/unite-v84.zip"
+UNITE_URL="https://github.com/hardpixel/unite-shell/releases/download/v84/unite-v84.zip"
+
+if [[ ! -d "$HOME/.local/share/gnome-shell/extensions/$UNITE_UUID" ]]; then
+  wget -qO "$UNITE_ZIP" "$UNITE_URL"
+  gnome-extensions install --force "$UNITE_ZIP"
+fi
+rm -f "$UNITE_ZIP"
 # needs reboot to show up in extensions list
 
 # Compile gsettings schemas in order to be able to set them
