@@ -8721,3 +8721,28 @@ headerbar windowcontrols button.minimize:backdrop,
 headerbar button.titlebutton.minimize:backdrop {
   background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png")) !important;
 }
+
+/* FINAL OVERRIDE V11: kill any remaining native GTK symbol on window controls */
+windowcontrols > button > image,
+windowcontrols > button:hover > image,
+windowcontrols > button:focus > image,
+windowcontrols > button:active > image,
+windowcontrols > button:checked > image,
+windowcontrols > button:backdrop > image,
+windowcontrols > button:backdrop:hover > image,
+headerbar windowcontrols > button > image,
+headerbar windowcontrols > button:hover > image,
+headerbar windowcontrols > button:focus > image,
+headerbar windowcontrols > button:active > image,
+headerbar windowcontrols > button:checked > image,
+headerbar windowcontrols > button:backdrop > image,
+headerbar windowcontrols > button:backdrop:hover > image {
+  -gtk-icon-source: none !important;
+  -gtk-icon-filter: opacity(0) !important;
+  -gtk-icon-shadow: none !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  opacity: 0 !important;
+  background: none !important;
+  background-image: none !important;
+}
