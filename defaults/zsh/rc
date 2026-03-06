@@ -38,6 +38,7 @@ if [[ -f /etc/zsh_command_not_found ]]; then
 fi
 
 # Completion system
+zmodload -i zsh/complist
 autoload -Uz compinit
 compinit
 
@@ -69,8 +70,20 @@ setopt MARK_DIRS
 # Do not autocomplete hidden files unless the pattern explicitly begins with a dot
 unsetopt GLOB_DOTS
 
-# Show all autocomplete results at once
-zstyle ':completion:*' menu no
+# Interactive completion menu:
+# - Tab/Shift-Tab: next/previous entry
+# - Up/Down: move in list
+# - Right: accept current dir and continue completion inside it
+zstyle ':completion:*' menu select
+bindkey -M menuselect '^I' menu-complete
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+bindkey -M menuselect '^[[A' up-line-or-history
+bindkey -M menuselect '^[[B' down-line-or-history
+bindkey -M menuselect '^[[C' accept-and-menu-complete
+
+# Better directory completion for `cd`
+zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
+zstyle ':completion:*' special-dirs true
 
 # If there are more than 200 possible completions for a word, ask to show them all
 LISTMAX=200
