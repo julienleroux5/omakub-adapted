@@ -7,6 +7,6 @@ Encoding=UTF-8
 [X-GNOME-Metatheme]
 GtkTheme=Tokyonight-B-MB-Dark-Storm
 MetacityTheme=Tokyonight-B-MB-Dark-Storm
-IconTheme=Tela-circle-Dark
+IconTheme=Yaru-blue-dark
 CursorTheme=Tokyonight-B-MB-cursors
-ButtonLayout=close,minimize,maximize:menu
+ButtonLayout=:minimize,maximize,close
