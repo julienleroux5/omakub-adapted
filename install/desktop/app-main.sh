@@ -12,6 +12,7 @@ sudo apt update
 sudo apt install -y teams-for-linux
 
 # zotero
+sudo apt install -y gtk2-engines-murrine
 cd /tmp
 wget -O zotero.tar.xz "https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64"
 mkdir -p ~/Apps

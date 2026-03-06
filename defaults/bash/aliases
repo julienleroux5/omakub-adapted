@@ -1,11 +1,13 @@
 # File system
-alias ls='eza -lh --group-directories-first --icons=auto'
 alias lsa='ls -a'
-alias lt='eza --tree --level=2 --long --icons --git'
-alias lta='lt -a'
+alias l='lsd -l'
+alias la='lsd -a'
+alias lla='lsd -la'
+alias ls="lsd --group-dirs first"
+alias ll="lsd --group-dirs first -la"
+alias tree="lsd --tree --group-dirs first --depth=2 2>/dev/null"
 alias ff="fzf --preview 'batcat --style=numbers --color=always {}'"
 alias fd='fdfind'
-alias cd='z'
 
 # Directories
 alias ..='cd ..'

@@ -1,0 +1,141 @@
+# Omakub zsh defaults
+
+# for zellij autostart
+if [[ -z "$ZELLIJ" ]] && command -v zellij &> /dev/null; then
+  if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
+    zellij attach -c
+  else
+    zellij
+  fi
+
+  if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+    exit
+  fi
+fi
+
+# Core variables and PATH
+export OMAKUB_PATH="$HOME/.local/share/omakub"
+typeset -U path PATH
+path=(./bin "$HOME/.local/bin" "$HOME/.local/share/omakub/bin" $path)
+
+# History in cache directory
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE="$HOME/.cache/zsh/history"
+mkdir -p -- "${HISTFILE:h}"
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_FIND_NO_DUPS
+
+# Enable command-not-found if installed
+if [[ -f /etc/zsh_command_not_found ]]; then
+  source /etc/zsh_command_not_found
+fi
+
+# Completion system
+autoload -Uz compinit
+compinit
+
+# ===== inputrc equivalents =====
+
+# set meta-flag/input-meta/output-meta on + convert-meta off
+setopt PRINT_EIGHT_BIT
+
+# set completion-ignore-case on
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# set show-all-if-ambiguous on
+# set show-all-if-unmodified on
+setopt AUTO_LIST
+setopt LIST_AMBIGUOUS
+
+# Arrow keys match what you've typed so far against your command history
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^[[C' forward-char
+bindkey '^[[D' backward-char
+
+# Immediately add a trailing slash when autocompleting symlinks to directories
+setopt MARK_DIRS
+
+# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+unsetopt GLOB_DOTS
+
+# Show all autocomplete results at once
+zstyle ':completion:*' menu no
+
+# If there are more than 200 possible completions for a word, ask to show them all
+LISTMAX=200
+
+# Show extra file information when completing, like ls -F does
+setopt LIST_TYPES
+
+# Coloring for completion listings
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# Be more intelligent when autocompleting by also looking at text after cursor
+setopt COMPLETE_IN_WORD
+
+# ===== Command integrations =====
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
+fi
+
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
+
+if command -v fzf &> /dev/null; then
+  # Different distros install these files in different locations.
+  for fzf_completion in \
+    /usr/share/doc/fzf/examples/completion.zsh \
+    /usr/share/fzf/completion.zsh \
+    /usr/share/fzf/shell/completion.zsh
+  do
+    if [[ -f "$fzf_completion" ]]; then
+      source "$fzf_completion"
+      break
+    fi
+  done
+
+  for fzf_bindings in \
+    /usr/share/doc/fzf/examples/key-bindings.zsh \
+    /usr/share/fzf/key-bindings.zsh \
+    /usr/share/fzf/shell/key-bindings.zsh
+  do
+    if [[ -f "$fzf_bindings" ]]; then
+      source "$fzf_bindings"
+      break
+    fi
+  done
+
+  # Keep bash-like Ctrl+R menu behavior when fzf widget is available.
+  if (( $+widgets[fzf-history-widget] )); then
+    bindkey '^R' fzf-history-widget
+  fi
+fi
+
+# Reuse shared aliases/functions
+source ~/.local/share/omakub/defaults/bash/aliases
+source ~/.local/share/omakub/defaults/bash/functions
+
+# Prompt: path in title and caret-like glyph prompt
+autoload -Uz add-zsh-hook
+omakub_set_title() { print -Pn '\e]0;%~\a'; }
+add-zsh-hook precmd omakub_set_title
+PROMPT=$'\uf0a9 '
+
+# Oh My Posh is enabled by default when available.
+# You can disable it with OMAKUB_DISABLE_OH_MY_POSH=true.
+# You can override the theme with OMAKUB_OH_MY_POSH_THEME (default: jandedobbeleer).
+if [[ "$OMAKUB_DISABLE_OH_MY_POSH" != "true" ]] && command -v oh-my-posh &> /dev/null; then
+  eval "$(oh-my-posh init zsh --config "${OMAKUB_OH_MY_POSH_THEME:-jandedobbeleer}")"
+fi

@@ -10,3 +10,13 @@ source ~/.local/share/omakub/defaults/bash/shell
 [ -f ~/.inputrc ] && mv ~/.inputrc ~/.inputrc.bak
 # Configure the inputrc using Omakub defaults
 cp ~/.local/share/omakub/configs/inputrc ~/.inputrc
+
+# Configure zsh while keeping the custom bash installation
+[ -f ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak
+cp ~/.local/share/omakub/configs/zshrc ~/.zshrc
+
+# Set zsh as the default shell for the current user
+ZSH_PATH="$(command -v zsh)"
+if [ -n "$ZSH_PATH" ] && [ "$SHELL" != "$ZSH_PATH" ]; then
+  chsh -s "$ZSH_PATH"
+fi

@@ -1,0 +1,35 @@
+# User/machine-specific zsh overrides for Omakub.
+# Copy to ~/.zshrc.local if needed.
+
+# Node (nvm)
+[[ -f "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
+
+# Conda
+__conda_setup="$('/media/julien/Data/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [[ $? -eq 0 ]]; then
+  eval "$__conda_setup"
+else
+  if [[ -f "/media/julien/Data/anaconda3/etc/profile.d/conda.sh" ]]; then
+    source "/media/julien/Data/anaconda3/etc/profile.d/conda.sh"
+  else
+    path=("/media/julien/Data/anaconda3/bin" $path)
+  fi
+fi
+unset __conda_setup
+
+# Juliaup
+path=('/media/julien/Data/juliaup/bin' $path)
+
+# Extra PATH entries (deduplicated by typeset -U in defaults/zsh/rc)
+path=("$HOME/bin" "/opt/nvim" "$HOME/.local/bin" $path)
+
+# VS Code shell integration
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  source "$(code --locate-shell-integration-path zsh)"
+  unset RPROMPT
+  export VSCODE_SHELL_INTEGRATION_TIMEOUT=30000
+fi
+
+# Prompt (Oh My Posh is enabled by default in Omakub zsh)
+# export OMAKUB_DISABLE_OH_MY_POSH=true
+# export OMAKUB_OH_MY_POSH_THEME='jandedobbeleer'
