@@ -4304,6 +4304,47 @@ button.titlebutton:not(.suggested-action):not(.destructive-action).maximize:acti
   background-image: url("assets/scalable/unmaximize.svg");
 }
 
+/* Hard lock titlebutton geometry to avoid vertical stretching on some setups */
+button.titlebutton:not(.suggested-action):not(.destructive-action),
+headerbar.titlebar.default-decoration button.titlebutton:not(.suggested-action):not(.destructive-action),
+.background.csd headerbar.titlebar.default-decoration button.titlebutton:not(.suggested-action):not(.destructive-action) {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  padding: 0 !important;
+  margin: 0 1px !important;
+  border-radius: 9999px !important;
+  box-shadow: none !important;
+  line-height: 0 !important;
+}
+
+button.titlebutton:not(.suggested-action):not(.destructive-action) image {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  opacity: 0 !important;
+}
+
+headerbar.titlebar.default-decoration button.close.titlebutton:not(.suggested-action):not(.destructive-action),
+headerbar.titlebar.default-decoration button.maximize.titlebutton:not(.suggested-action):not(.destructive-action),
+headerbar.titlebar.default-decoration button.minimize.titlebutton:not(.suggested-action):not(.destructive-action) {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  padding: 0 !important;
+  margin: 0 1px !important;
+  border-radius: 9999px !important;
+  box-shadow: none !important;
+  line-height: 0 !important;
+}
+
 .monospace {
   font-family: monospace;
 }

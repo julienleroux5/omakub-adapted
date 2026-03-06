@@ -8530,145 +8530,7 @@ read if you used those and something break with a version upgrade you're on your
 @define-color shade_color rgba(233, 233, 237, 0.12);
 @define-color scrollbar_outline_color rgba(233, 233, 237, 0.12);
 
-/* ===== Custom macOS-style window control buttons ===== */
-/* Tokyonight specificity reference:
- *   button                                                    → (0,0,1)
- *   button { min-height:24px; min-width:16px; padding:5px 9px } → (0,0,1)
- *   button.close { border-radius:9999px }                     → (0,1,1)
- *   headerbar button:hover:not():not()                        → (0,3,2)
- *   Our selectors use :not() padding to reach at least        → (0,4,3)
- */
-
-/* ---- Container spacing ---- */
-headerbar windowcontrols {
-  border-spacing: 6px;
-  padding: 0 8px;
-}
-
-/* ---- Hide the native GTK icon inside the button ---- */
-/* Specificity (0,2,4) — beats any generic button>image rule */
-headerbar windowcontrols button.close > image,
-headerbar windowcontrols button.maximize > image,
-headerbar windowcontrols button.minimize > image {
-  padding: 0;
-  margin: 0;
-  min-width: 0;
-  min-height: 0;
-  background-color: transparent;
-  background-image: none;
-  color: transparent;
-  opacity: 0;
-  -gtk-icon-size: 0px;
-  -gtk-icon-filter: opacity(0);
-}
-
-/* ---- Button geometry: force 16×16 circle ---- */
-/* Specificity (0,4,3) — beats button.close (0,1,1) */
-headerbar windowcontrols button.close:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.maximize:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.minimize:not(.suggested-action):not(.destructive-action) {
-  min-width: 16px;
-  min-height: 16px;
-  max-width: 16px;
-  max-height: 16px;
-  padding: 0;
-  margin: 0 1px;
-  border-radius: 9999px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 8px 8px;
-  overflow: hidden;
-}
-
-/* ---- Neutralise ALL states ---- */
-/* Specificity (0,4,3) or (0,5,3) with pseudo-class */
-headerbar windowcontrols button.close:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.close:hover:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.close:focus:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.close:active:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.close:checked:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.close:backdrop:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.maximize:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.maximize:hover:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.maximize:focus:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.maximize:active:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.maximize:checked:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.maximize:backdrop:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.minimize:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.minimize:hover:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.minimize:focus:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.minimize:active:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.minimize:checked:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.minimize:backdrop:not(.suggested-action):not(.destructive-action) {
-  border-color: transparent;
-  background-color: transparent;
-  background-image: none;
-  box-shadow: none;
-  color: transparent;
-  outline: none;
-  -gtk-icon-filter: opacity(0);
-}
-
-/* ---- Default state: colored dot ---- */
-headerbar windowcontrols button.close:not(.suggested-action):not(.destructive-action) {
-  background-color: #d31919;
-  background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png"));
-}
-
-headerbar windowcontrols button.maximize:not(.suggested-action):not(.destructive-action) {
-  background-color: #377cf1;
-  background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png"));
-}
-
-headerbar windowcontrols button.minimize:not(.suggested-action):not(.destructive-action) {
-  background-color: #fd7d00;
-  background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png"));
-}
-
-/* ---- Backdrop: grey dot ---- */
-headerbar windowcontrols button.close:backdrop:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.maximize:backdrop:not(.suggested-action):not(.destructive-action),
-headerbar windowcontrols button.minimize:backdrop:not(.suggested-action):not(.destructive-action) {
-  background-color: #7f7f7f;
-  background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png"));
-}
-
-/* ---- Hover: show icon ---- */
-headerbar windowcontrols button.close:hover:not(.suggested-action):not(.destructive-action) {
-  background-color: #d31919;
-  background-image: -gtk-scaled(url("assets/close.png"), url("assets/close@2.png"));
-}
-
-headerbar windowcontrols button.close:active:not(.suggested-action):not(.destructive-action) {
-  background-color: #b01515;
-  background-image: -gtk-scaled(url("assets/close.png"), url("assets/close@2.png"));
-}
-
-headerbar windowcontrols button.maximize:hover:not(.suggested-action):not(.destructive-action) {
-  background-color: #377cf1;
-  background-image: -gtk-scaled(url("assets/maximize.png"), url("assets/maximize@2.png"));
-}
-
-headerbar windowcontrols button.maximize:active:not(.suggested-action):not(.destructive-action) {
-  background-color: #2c63c1;
-  background-image: -gtk-scaled(url("assets/maximize.png"), url("assets/maximize@2.png"));
-}
-
-headerbar windowcontrols button.minimize:hover:not(.suggested-action):not(.destructive-action) {
-  background-color: #fd7d00;
-  background-image: -gtk-scaled(url("assets/minimize.png"), url("assets/minimize@2.png"));
-}
-
-headerbar windowcontrols button.minimize:active:not(.suggested-action):not(.destructive-action) {
-  background-color: #ca6400;
-  background-image: -gtk-scaled(url("assets/minimize.png"), url("assets/minimize@2.png"));
-}
-
 /* ===== Unite extension: hide windowcontrols when maximised/tiled/fullscreen ===== */
-/* Tokyonight sets windowcontrols:not(.empty).end:dir(ltr) { margin: 6px }
- * with specificity (0,3,1). Unite's .maximized headerbar windowcontrols.end
- * has only (0,2,2) and LOSES. We must use :not(.empty) to reach (0,4,2). */
-
 .maximized headerbar windowhandle,
 .fullscreen headerbar windowhandle,
 .tiled headerbar windowhandle,
@@ -8714,4 +8576,148 @@ headerbar windowcontrols button.minimize:active:not(.suggested-action):not(.dest
 .tiled-left .titlebar.default-decoration {
   margin: -200px 0 0;
   opacity: 0;
+}
+
+/* FINAL OVERRIDE V10: MacTahoe GTK4 titlebuttons port (from _common-4.0.scss) */
+headerbar windowcontrols {
+  border-spacing: 6px !important;
+  padding: 0 8px !important;
+}
+
+headerbar windowcontrols button > image,
+headerbar button.titlebutton > image {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  color: transparent !important;
+  opacity: 0 !important;
+  box-shadow: none !important;
+  -gtk-icon-shadow: none !important;
+  -gtk-icon-source: none !important;
+  -gtk-icon-filter: opacity(0) !important;
+}
+
+headerbar windowcontrols button:active > image,
+headerbar button.titlebutton:active > image {
+  box-shadow: none !important;
+  -gtk-icon-shadow: none !important;
+}
+
+headerbar windowcontrols button:hover > image,
+headerbar windowcontrols button:focus > image,
+headerbar windowcontrols button:backdrop > image,
+headerbar windowcontrols button:backdrop:hover > image,
+headerbar button.titlebutton:hover > image,
+headerbar button.titlebutton:focus > image,
+headerbar button.titlebutton:backdrop > image,
+headerbar button.titlebutton:backdrop:hover > image {
+  opacity: 0 !important;
+  color: transparent !important;
+  background: none !important;
+  box-shadow: none !important;
+  -gtk-icon-shadow: none !important;
+  -gtk-icon-source: none !important;
+  -gtk-icon-filter: opacity(0) !important;
+}
+
+headerbar windowcontrols button.close,
+headerbar windowcontrols button.maximize,
+headerbar windowcontrols button.minimize,
+headerbar windowcontrols button.close:hover,
+headerbar windowcontrols button.maximize:hover,
+headerbar windowcontrols button.minimize:hover,
+headerbar windowcontrols button.close:focus,
+headerbar windowcontrols button.maximize:focus,
+headerbar windowcontrols button.minimize:focus,
+headerbar windowcontrols button.close:active,
+headerbar windowcontrols button.maximize:active,
+headerbar windowcontrols button.minimize:active,
+headerbar windowcontrols button.close:backdrop,
+headerbar windowcontrols button.maximize:backdrop,
+headerbar windowcontrols button.minimize:backdrop,
+headerbar button.titlebutton.close,
+headerbar button.titlebutton.maximize,
+headerbar button.titlebutton.minimize,
+headerbar button.titlebutton.close:hover,
+headerbar button.titlebutton.maximize:hover,
+headerbar button.titlebutton.minimize:hover,
+headerbar button.titlebutton.close:focus,
+headerbar button.titlebutton.maximize:focus,
+headerbar button.titlebutton.minimize:focus,
+headerbar button.titlebutton.close:active,
+headerbar button.titlebutton.maximize:active,
+headerbar button.titlebutton.minimize:active,
+headerbar button.titlebutton.close:backdrop,
+headerbar button.titlebutton.maximize:backdrop,
+headerbar button.titlebutton.minimize:backdrop {
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  padding: 0 !important;
+  margin: 0 1px !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: 16px 16px !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  line-height: 0 !important;
+}
+
+headerbar windowcontrols button.close,
+headerbar button.titlebutton.close {
+  background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png")) !important;
+}
+headerbar windowcontrols button.close:hover,
+headerbar button.titlebutton.close:hover {
+  background-image: -gtk-scaled(url("assets/close.png"), url("assets/close@2.png")) !important;
+}
+headerbar windowcontrols button.close:active,
+headerbar button.titlebutton.close:active {
+  background-image: -gtk-scaled(url("assets/close.png"), url("assets/close@2.png")) !important;
+}
+headerbar windowcontrols button.close:backdrop,
+headerbar button.titlebutton.close:backdrop {
+  background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png")) !important;
+}
+
+headerbar windowcontrols button.maximize,
+headerbar button.titlebutton.maximize {
+  background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png")) !important;
+}
+headerbar windowcontrols button.maximize:hover,
+headerbar button.titlebutton.maximize:hover {
+  background-image: -gtk-scaled(url("assets/maximize.png"), url("assets/maximize@2.png")) !important;
+}
+headerbar windowcontrols button.maximize:active,
+headerbar button.titlebutton.maximize:active {
+  background-image: -gtk-scaled(url("assets/maximize.png"), url("assets/maximize@2.png")) !important;
+}
+headerbar windowcontrols button.maximize:backdrop,
+headerbar button.titlebutton.maximize:backdrop {
+  background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png")) !important;
+}
+
+headerbar windowcontrols button.minimize,
+headerbar button.titlebutton.minimize {
+  background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png")) !important;
+}
+headerbar windowcontrols button.minimize:hover,
+headerbar button.titlebutton.minimize:hover {
+  background-image: -gtk-scaled(url("assets/minimize.png"), url("assets/minimize@2.png")) !important;
+}
+headerbar windowcontrols button.minimize:active,
+headerbar button.titlebutton.minimize:active {
+  background-image: -gtk-scaled(url("assets/minimize.png"), url("assets/minimize@2.png")) !important;
+}
+headerbar windowcontrols button.minimize:backdrop,
+headerbar button.titlebutton.minimize:backdrop {
+  background-image: -gtk-scaled(url("assets/titlebutton.png"), url("assets/titlebutton@2.png")) !important;
 }

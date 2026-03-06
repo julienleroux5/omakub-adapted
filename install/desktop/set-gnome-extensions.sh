@@ -123,4 +123,5 @@ gsettings set org.gnome.shell.extensions.openbar default-font 'Sans 10'
 # Configure Unite
 gsettings set org.gnome.shell.extensions.unite extend-left-box false
 gsettings set org.gnome.shell.extensions.unite show-desktop-name false
-gsettings set org.gnome.shell.extensions.unite window-buttons-placement 'right'
+gsettings set org.gnome.shell.extensions.unite window-buttons-placement 'left'
+gsettings set org.gnome.shell.extensions.unite show-window-buttons 'maximized'
