@@ -17,4 +17,6 @@ mkdir -p ~/.config/Code/User
 cp ~/.local/share/omakub/configs/vscode.json ~/.config/Code/User/settings.json
 
 # Install default supported themes
-code --install-extension enkia.tokyo-night
+if ! code --list-extensions | grep -q '^enkia.tokyo-night$'; then
+  code --install-extension enkia.tokyo-night
+fi

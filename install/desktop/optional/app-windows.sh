@@ -2,7 +2,9 @@
 
 echo "Downloading the VirtIO drivers to ~/Downloads"
 mkdir -p ~/Downloads
-wget -O ~/Downloads/virtio-win-0.1.240.iso https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-0.1.240.iso
+if [[ ! -f ~/Downloads/virtio-win-0.1.240.iso ]]; then
+  wget -O ~/Downloads/virtio-win-0.1.240.iso https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-0.1.240.iso
+fi
 
 echo "Download the Windows 11 ISO..."
 open https://www.microsoft.com/software-download/windows11

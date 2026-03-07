@@ -1,3 +1,5 @@
 #!/bin/bash
 
-curl -fsSL https://tailscale.com/install.sh | sh
+if ! command -v tailscale &> /dev/null; then
+  curl -fsSL https://tailscale.com/install.sh | sh
+fi

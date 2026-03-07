@@ -1,3 +1,5 @@
 #!/bin/bash
 
-curl -fsSL https://ollama.com/install.sh | sh
+if ! command -v ollama &> /dev/null; then
+  curl -fsSL https://ollama.com/install.sh | sh
+fi

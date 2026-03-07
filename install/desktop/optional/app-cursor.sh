@@ -1,9 +1,12 @@
 #!/bin/bash
 
-cd /tmp
-curl -L "https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable" | jq -r '.downloadUrl' | xargs curl -L -o cursor.appimage
-sudo mv cursor.appimage /opt/cursor.appimage
-sudo chmod +x /opt/cursor.appimage
+if [[ ! -x /opt/cursor.appimage ]]; then
+  cd /tmp
+  curl -L "https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable" | jq -r '.downloadUrl' | xargs curl -L -o cursor.appimage
+  sudo mv cursor.appimage /opt/cursor.appimage
+  sudo chmod +x /opt/cursor.appimage
+  cd -
+fi
 sudo apt install -y fuse3
 sudo apt install -y libfuse2t64
 

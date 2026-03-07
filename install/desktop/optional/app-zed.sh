@@ -1,3 +1,5 @@
 #!/bin/bash
 
-curl https://zed.dev/install.sh | sh
+if ! command -v zed &> /dev/null; then
+  curl https://zed.dev/install.sh | sh
+fi

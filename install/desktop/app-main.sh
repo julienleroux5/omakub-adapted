@@ -13,34 +13,44 @@ sudo apt install -y teams-for-linux
 
 # zotero
 sudo apt install -y gtk2-engines-murrine
-cd /tmp
-wget -O zotero.tar.xz "https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64"
-mkdir -p ~/Apps
-tar -xvf zotero.tar.xz -C ~/Apps/
-bash ~/Apps/Zotero_linux-x86_64/set_launcher_icon
-ln -sf ~/Apps/Zotero_linux-x86_64/zotero.desktop ~/.local/share/applications/zotero.desktop
-rm zotero.tar.xz
-cd -
+if [[ ! -x "$HOME/Apps/Zotero_linux-x86_64/zotero" ]]; then
+  cd /tmp
+  wget -O zotero.tar.xz "https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64"
+  mkdir -p ~/Apps
+  tar -xvf zotero.tar.xz -C ~/Apps/
+  bash ~/Apps/Zotero_linux-x86_64/set_launcher_icon
+  ln -sf ~/Apps/Zotero_linux-x86_64/zotero.desktop ~/.local/share/applications/zotero.desktop
+  rm zotero.tar.xz
+  cd -
+fi
 
 # joplin
 
 # smartgit
 
-cd /tmp
-wget -O smartgit.tar.gz "https://download.smartgit.dev/smartgit/smartgit-26_1-latest-linux-amd64.tar.gz"
-mkdir -p ~/Apps
-tar -xvf smartgit.tar.gz -C ~/Apps/
-bash ~/Apps/smartgit/bin/add-menuitem.sh
-rm smartgit.tar.gz
-cd -
+if [[ ! -x "$HOME/Apps/smartgit/bin/smartgit.sh" ]]; then
+  cd /tmp
+  wget -O smartgit.tar.gz "https://download.smartgit.dev/smartgit/smartgit-26_1-latest-linux-amd64.tar.gz"
+  mkdir -p ~/Apps
+  tar -xvf smartgit.tar.gz -C ~/Apps/
+  bash ~/Apps/smartgit/bin/add-menuitem.sh
+  rm smartgit.tar.gz
+  cd -
+fi
 
 # couleur color picker
 
-# Add the GPG key
-curl -fsSL https://apt.gnomestarterpack.com/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/gnomestarterpack.gpg
-# Add the repository
-echo "deb [signed-by=/usr/share/keyrings/gnomestarterpack.gpg arch=amd64] https://apt.gnomestarterpack.com questy main" | sudo tee /etc/apt/sources.list.d/gnomestarterpack.list
+if ! command -v gnomestarterpack-couleur &> /dev/null; then
+  if [[ ! -f /etc/apt/sources.list.d/gnomestarterpack.list ]] || [[ ! -f /usr/share/keyrings/gnomestarterpack.gpg ]]; then
+    # Add the GPG key
+    curl -fsSL https://apt.gnomestarterpack.com/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/gnomestarterpack.gpg
+    # Add the repository
+    echo "deb [signed-by=/usr/share/keyrings/gnomestarterpack.gpg arch=amd64] https://apt.gnomestarterpack.com questy main" | sudo tee /etc/apt/sources.list.d/gnomestarterpack.list >/dev/null
+  fi
+  sudo apt update
+  sudo apt install -y gnomestarterpack-couleur
+fi
 
-# Update package list
-sudo apt update
-sudo apt install -y gnomestarterpack-couleur
+# cava audio visualizer
+
+sudo apt install -y cava
