@@ -54,3 +54,31 @@ fi
 # cava audio visualizer
 
 sudo apt install -y cava
+
+# safe eyes to prevent eye strain by reminding to take breaks.
+sudo apt install -y safeeyes
+
+# WPS office
+if ! dpkg -s wps-office >/dev/null 2>&1; then
+  cd /tmp
+  echo 'Downloading WPS Office!'
+  wget -q https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11723/wps-office_11.1.0.11723.XA_amd64.deb
+
+  echo 'Downloading the symbols for WPS Office!'
+  wget -q https://github.com/IamDH4/ttf-wps-fonts/archive/master.zip
+
+  echo 'Installing WPS Office!'
+  sudo dpkg -i wps-office_11.1.0.11723.XA_amd64.deb
+  rm wps-office_11.1.0.11723.XA_amd64.deb
+
+  echo 'Installing the symbols for WPS Office!'
+  unzip master.zip
+  cd ttf-wps-fonts-master && sudo bash install.sh
+  cd ..
+  rm -rf ttf-wps-fonts-master
+  rm master.zip
+  cd -
+fi
+
+# typing completion 
+sudo apt install -y ibus-typing-booster

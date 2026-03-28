@@ -51,3 +51,20 @@ gsettings set org.gnome.desktop.interface gtk-theme "$THEME_NAME"
 echo "Theme installed:"
 echo "- GTK theme: $THEME_NAME"
 echo "- GTK4 directory synced: $GTK4_DIR"
+
+
+
+# install gdm theme from mactahoe with beach background
+# cd mactahoe-gtk-theme
+# sudo ./tweaks.sh -g -b "path to beach background"
+# cd -
+
+
+# install lafayette xkb custom layout for azerty to qwerty remapping
+lafayette_file="$(mktemp /tmp/lafayette_linux_v0.9.xkb_custom.XXXXXX)"
+wget -qO "$lafayette_file" https://qwerty-lafayette.org/releases/lafayette_linux_v0.9.xkb_custom
+sudo mv "$lafayette_file" "${XKB_CONFIG_ROOT:-/usr/share/X11/xkb}/symbols/custom"
+
+# set gdm locale to fr lafayette
+sudo cp "$SCRIPT_DIR/keyboard" /etc/default/keyboard
+sudo -u gdm dbus-run-session gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'fr+lafayette')]"
