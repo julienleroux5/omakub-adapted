@@ -31,6 +31,10 @@ if [ ! -d "$HOME/.config/nvim" ]; then
   # Turn off animated scrolling
   cp ~/.local/share/omakub/configs/neovim/snacks-animated-scrolling-off.lua ~/.config/nvim/lua/plugins/
 
+  # Install Telescope and Telescope file browser plugins
+  cp ~/.local/share/omakub/configs/neovim/telescope.lua ~/.config/nvim/lua/plugins/
+  cp ~/.local/share/omakub/configs/neovim/file-browser.lua ~/.config/nvim/lua/plugins/
+
   # Turn off relative line numbers
   echo "vim.opt.relativenumber = false" >>~/.config/nvim/lua/config/options.lua
 

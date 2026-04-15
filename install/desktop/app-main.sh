@@ -60,6 +60,7 @@ sudo apt install -y safeeyes
 
 # WPS office
 if ! dpkg -s wps-office >/dev/null 2>&1; then
+  sudo apt install -y libglu1-mesa
   cd /tmp
   echo 'Downloading WPS Office!'
   wget -q https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11723/wps-office_11.1.0.11723.XA_amd64.deb
