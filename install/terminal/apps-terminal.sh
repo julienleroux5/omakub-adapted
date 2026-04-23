@@ -77,32 +77,28 @@ if ! command -v dust &> /dev/null; then
   sudo snap install dust
 fi
 
+# apps terminal detected in /media/julien/Data/tmp/snaps.txt
+if ! command -v bpytop &> /dev/null; then
+  sudo snap install bpytop
+fi
+
+# cloudflared (APT repo)
+if ! command -v cloudflared &> /dev/null; then
+  if [ ! -f /etc/apt/sources.list.d/cloudflared.list ]; then
+    [ -f /usr/share/keyrings/cloudflare-main.gpg ] && sudo rm /usr/share/keyrings/cloudflare-main.gpg
+    curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+    echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main" | sudo tee /etc/apt/sources.list.d/cloudflared.list >/dev/null
+  fi
+  sudo apt update
+  sudo apt install -y cloudflared
+fi
+
 # television fuzzy finder
 if ! command -v tv &> /dev/null; then
-  tv_tag="$(curl -fsSL https://api.github.com/repos/alexpasmantier/television/releases/latest | grep -Po '"tag_name": "\K[^"]*')"
-  if [[ -z "$tv_tag" ]]; then
-    echo "Skipping television install: failed to resolve latest version." >&2
-  else
-    arch="$(dpkg --print-architecture)"
-    case "$arch" in
-      amd64) tv_arch="x86_64-unknown-linux-gnu" ;;
-      arm64) tv_arch="aarch64-unknown-linux-gnu" ;;
-      *)
-        echo "Skipping television install: unsupported architecture '$arch'" >&2
-        tv_arch=""
-        ;;
-    esac
-    if [[ -n "$tv_arch" ]]; then
-      tv_deb="/tmp/tv-${tv_tag}-${tv_arch}.deb"
-      curl -fsSL "https://github.com/alexpasmantier/television/releases/download/${tv_tag}/tv-${tv_tag}-${tv_arch}.deb" -o "$tv_deb"
-      sudo apt install -y "$tv_deb"
-      rm -f "$tv_deb"
-    fi
-  fi
+  curl -fsSL https://alexpasmantier.github.io/television/install.sh | bash
 fi
 
 # install croc
 if ! command -v croc &> /dev/null; then
-  curl -fsSL https://getcroc.schollz.com/install.sh | bash
+  curl -fsSL https://getcroc.schollz.com | bash
 fi
-

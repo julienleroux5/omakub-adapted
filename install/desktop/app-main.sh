@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # teams for linux
 if [ ! -f /etc/apt/sources.list.d/teams-for-linux-packages.sources ]; then
-  [ -f /etc/apt/keyrings/teams-for-linux.asc ] && sudo rm etc/apt/keyrings/teams-for-linux.asc
+  [ -f /etc/apt/keyrings/teams-for-linux.asc ] && sudo rm /etc/apt/keyrings/teams-for-linux.asc
   sudo mkdir -p /etc/apt/keyrings
   sudo wget -qO /etc/apt/keyrings/teams-for-linux.asc https://repo.teamsforlinux.de/teams-for-linux.asc
   sh -c 'echo "Types: deb\nURIs: https://repo.teamsforlinux.de/debian/\nSuites: stable\nComponents: main\nSigned-By: /etc/apt/keyrings/teams-for-linux.asc\nArchitectures: amd64" | sudo tee /etc/apt/sources.list.d/teams-for-linux-packages.sources'
@@ -25,6 +27,9 @@ if [[ ! -x "$HOME/Apps/Zotero_linux-x86_64/zotero" ]]; then
 fi
 
 # joplin
+if ! snap list joplin >/dev/null 2>&1; then
+  sudo snap install joplin
+fi
 
 # smartgit
 
@@ -37,6 +42,40 @@ if [[ ! -x "$HOME/Apps/smartgit/bin/smartgit.sh" ]]; then
   rm smartgit.tar.gz
   cd -
 fi
+
+# GUI apps detected in /media/julien/Data/tmp/snaps.txt
+if ! snap list telegram-desktop >/dev/null 2>&1; then
+  sudo snap install telegram-desktop
+fi
+
+if ! snap list onionshare >/dev/null 2>&1; then
+  sudo snap install onionshare
+fi
+
+if ! snap list whatsie >/dev/null 2>&1; then
+  sudo snap install whatsie
+fi
+
+# element-desktop (APT repo)
+if ! command -v element-desktop &> /dev/null; then
+  if [ ! -f /etc/apt/sources.list.d/element-io.list ]; then
+    [ -f /usr/share/keyrings/element-io-archive-keyring.gpg ] && sudo rm /usr/share/keyrings/element-io-archive-keyring.gpg
+    sudo wget -qO /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list >/dev/null
+  fi
+  sudo apt update
+  sudo apt install -y element-desktop
+fi
+
+# veracrypt (available in some Ubuntu repositories)
+if ! command -v veracrypt &> /dev/null; then
+  if apt-cache show veracrypt >/dev/null 2>&1; then
+    sudo apt install -y veracrypt
+  else
+    echo "Skipping veracrypt install: package not available in configured APT sources." >&2
+  fi
+fi
+
 
 # couleur color picker
 
@@ -57,6 +96,13 @@ sudo apt install -y cava
 
 # safe eyes to prevent eye strain by reminding to take breaks.
 sudo apt install -y safeeyes
+
+# Install common GUI applications
+sudo apt install -y audacious \
+rhythmbox lollypop quodlibet \
+gimp inkscape krita shotwell cheese simple-scan \
+file-roller transmission-gtk \
+p7zip-full unrar unzip zip
 
 # WPS office
 if ! dpkg -s wps-office >/dev/null 2>&1; then
