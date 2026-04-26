@@ -63,6 +63,8 @@ bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 bindkey '^[[C' forward-char
 bindkey '^[[D' backward-char
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
 
 # Immediately add a trailing slash when autocompleting symlinks to directories
 setopt MARK_DIRS

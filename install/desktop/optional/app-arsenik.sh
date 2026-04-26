@@ -23,32 +23,34 @@ mkdir -p "$CONFIG_DIR"
 # Install Arsenik
 echo "Installing Arsenik..."
 if [ ! -d "$CONFIG_DIR" ] || [ -z "$(ls -A $CONFIG_DIR)" ]; then
-    # Download and extract Arsenik
-    echo "Downloading Arsenik from $ARSENIK_URL..."
-    curl -L "$ARSENIK_URL" -o /tmp/arsenik.zip
-    unzip /tmp/arsenik.zip -d $CONFIG_DIR
-    rm -rf /tmp/arsenik.zip
-    
-    echo "Arsenik installed successfully to $CONFIG_DIR"
+  # Download and extract Arsenik
+  echo "Downloading Arsenik from $ARSENIK_URL..."
+  curl -L "$ARSENIK_URL" -o /tmp/arsenik.zip
+  unzip /tmp/arsenik.zip -d $CONFIG_DIR
+  mv $CONFIG_DIR/arsenik/* $CONFIG_DIR/
+  rm -rf $CONFIG_DIR/arsenik
+  rm -rf /tmp/arsenik.zip
+
+  echo "Arsenik installed successfully to $CONFIG_DIR"
 else
-    echo "Arsenik is already installed"
+  echo "Arsenik is already installed"
 fi
 
 # Install Kanata
 echo "Installing Kanata..."
 if [ ! -f "$INSTALL_DIR/kanata_linux_x64" ]; then
-    # Download and extract Kanata
-    echo "Downloading Kanata from $KATANA_URL..."
-    curl -L "$KATANA_URL" -o /tmp/kanata.zip
-    unzip /tmp/kanata.zip -d /tmp/kanata
-    
-    # Install binary
-    install -m 755 /tmp/kanata/kanata_linux_x64 "$INSTALL_DIR/kanata_linux_x64"
-    rm -rf /tmp/kanata /tmp/kanata.zip
-    
-    echo "Kanata installed successfully to $INSTALL_DIR/kanata_linux_x64"
+  # Download and extract Kanata
+  echo "Downloading Kanata from $KATANA_URL..."
+  curl -L "$KATANA_URL" -o /tmp/kanata.zip
+  unzip /tmp/kanata.zip -d /tmp/kanata
+
+  # Install binary
+  install -m 755 /tmp/kanata/kanata_linux_x64 "$INSTALL_DIR/kanata_linux_x64"
+  rm -rf /tmp/kanata /tmp/kanata.zip
+
+  echo "Kanata installed successfully to $INSTALL_DIR/kanata_linux_x64"
 else
-    echo "Kanata is already installed"
+  echo "Kanata is already installed"
 fi
 
 # Configure uinput permissions for Kanata (requires sudo)
@@ -56,26 +58,26 @@ echo "Configuring uinput permissions for Kanata..."
 
 # Create uinput group and add user to input and uinput groups
 if ! getent group uinput >/dev/null; then
-    echo "Creating uinput group and adding user to groups..."
-    sudo groupadd -U $USER uinput
-    sudo usermod -aG input $USER
-    echo "Groups created. You will need to log out and back in for group changes to take effect."
+  echo "Creating uinput group and adding user to groups..."
+  sudo groupadd -U $USER uinput
+  sudo usermod -aG input $USER
+  echo "Groups created. You will need to log out and back in for group changes to take effect."
 else
-    echo "uinput group already exists"
-    # Check if user is in input and uinput groups
-    if ! id -nG $USER | grep -qw input; then
-        sudo usermod -aG input $USER
-        echo "Added user to input group"
-    fi
-    if ! id -nG $USER | grep -qw uinput; then
-        sudo usermod -aG uinput $USER
-        echo "Added user to uinput group"
-    fi
+  echo "uinput group already exists"
+  # Check if user is in input and uinput groups
+  if ! id -nG $USER | grep -qw input; then
+    sudo usermod -aG input $USER
+    echo "Added user to input group"
+  fi
+  if ! id -nG $USER | grep -qw uinput; then
+    sudo usermod -aG uinput $USER
+    echo "Added user to uinput group"
+  fi
 fi
 
 # Create udev rule for uinput
 echo "Creating udev rule for Kanata..."
-cat > /tmp/50-kanata.rules << 'EOF'
+cat >/tmp/50-kanata.rules <<'EOF'
 KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
 EOF
 
@@ -85,7 +87,7 @@ sudo udevadm trigger
 
 # Create systemd service for Kanata (user service, no sudo required)
 echo "Setting up Kanata systemd service..."
-cat > "$HOME/.config/systemd/user/kanata.service" << 'EOF'
+cat >"$HOME/.config/systemd/user/kanata.service" <<'EOF'
 [Unit]
 Description=Kanata Keyboard Remapping
 Documentation=https://github.com/jtroo/kanata
@@ -110,21 +112,29 @@ systemctl --user start kanata.service
 # Configure Kanata configuration
 echo "Configuring Kanata configuration..."
 
-    sed -i 's/^;; (include defsrc\/pc.kbd)/(include defsrc\/pc.kbd)/' "$CONFIG_DIR/kanata.kbd"
-    sed -i 's/^;; (include deflayer\/base_lt.kbd)/(include deflayer\/base_lt.kbd)/' "$CONFIG_DIR/kanata.kbd"
-    sed -i 's/^;; (include deflayer\/symbols_lafayette_num.kbd)/(include deflayer\/symbols_lafayette_num.kbd)/' "$CONFIG_DIR/kanata.kbd"
-    sed -i 's/^;;(include deflayer\/navigation_vim.kbd)/(include deflayer\/navigation_vim.kbd)/' "$CONFIG_DIR/kanata.kbd"
-    sed -i 's/^;;(include defalias\/qwerty-lafayette_pc.kbd)/(include defalias\/qwerty-lafayette_pc.kbd)/' "$CONFIG_DIR/kanata.kbd"
-    # Ensure the run alias is set to do nothing if it exists
-    sed -i 's/^;; (defalias run M-p)/;; (defalias run M-p)/' "$CONFIG_DIR/kanata.kbd"
-    sed -i 's/^;;(defalias run XX)/(defalias run XX)/' "$CONFIG_DIR/kanata.kbd"
+# First, comment out the default active configurations
+sed -i 's/^(\(include deflayer\/base.kbd\))/;; (\1)/' "$CONFIG_DIR/kanata.kbd"
+sed -i 's/^(\(include deflayer\/symbols_noop.kbd\))/;; (\1)/' "$CONFIG_DIR/kanata.kbd"
+sed -i 's/^(\(include deflayer\/navigation.kbd\))/;; (\1)/' "$CONFIG_DIR/kanata.kbd"
+sed -i 's/^(\(include defalias\/ergol_pc.kbd\))/;; (\1)/' "$CONFIG_DIR/kanata.kbd"
+
+# Then, uncomment the desired configurations
+sed -i 's/^;; (include defsrc\/pc.kbd)/(include defsrc\/pc.kbd)/' "$CONFIG_DIR/kanata.kbd"
+sed -i 's/^;; (include deflayer\/base_lt.kbd)/(include deflayer\/base_lt.kbd)/' "$CONFIG_DIR/kanata.kbd"
+sed -i 's/^;; (include deflayer\/symbols_lafayette_num.kbd)/(include deflayer\/symbols_lafayette_num.kbd)/' "$CONFIG_DIR/kanata.kbd"
+sed -i 's/^;; (include deflayer\/navigation_vim.kbd)/(include deflayer\/navigation_vim.kbd)/' "$CONFIG_DIR/kanata.kbd"
+sed -i 's/^;; (include defalias\/qwerty-lafayette_pc.kbd)/(include defalias\/qwerty-lafayette_pc.kbd)/' "$CONFIG_DIR/kanata.kbd"
+
+# Ensure the run alias is set to do nothing if it exists
+sed -i 's/^;; (defalias run M-p)/;; (defalias run M-p)/' "$CONFIG_DIR/kanata.kbd"
+sed -i 's/^;;(defalias run XX)/(defalias run XX)/' "$CONFIG_DIR/kanata.kbd"
 
 echo "Kanata configuration set up with desired options:"
-echo "  - PC keyboard layout"
-echo "  - Layer-taps on thumb keys"
-echo "  - Lafayette symbols with number row layers"
-echo "  - Vim-style navigation layer"
-echo "  - Qwerty-Lafayette PC aliases"
+echo "  - PC keyboard layout (kept active)"
+echo "  - Layer-taps on thumb keys (replacing standard base)"
+echo "  - Lafayette symbols with number row layers (replacing symbols_noop)"
+echo "  - Vim-style navigation layer (replacing ESDF navigation)"
+echo "  - Qwerty-Lafayette PC aliases (replacing Ergo-L PC aliases)"
 
 echo "Installation complete!"
 echo "Arsenik configuration: $CONFIG_DIR"
