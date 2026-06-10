@@ -98,7 +98,7 @@ sudo apt install -y cava
 sudo apt install -y safeeyes
 
 # Install common GUI applications
-sudo apt install -y audacious \
+sudo apt install -y audacious torbrowser-launcher \
 rhythmbox lollypop quodlibet \
 gimp inkscape krita shotwell cheese simple-scan \
 file-roller transmission-gtk \
