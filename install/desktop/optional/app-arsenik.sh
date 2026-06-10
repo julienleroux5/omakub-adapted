@@ -129,6 +129,51 @@ sed -i 's/^;; (include defalias\/qwerty-lafayette_pc.kbd)/(include defalias\/qwe
 sed -i 's/^;; (defalias run M-p)/;; (defalias run M-p)/' "$CONFIG_DIR/kanata.kbd"
 sed -i 's/^;;(defalias run XX)/(defalias run XX)/' "$CONFIG_DIR/kanata.kbd"
 
+# Extend existing defcfg block with extra options (after windows-altgr line)
+awk '/^  windows-altgr cancel-lctl-press$/{
+  print
+  print ""
+  print "  concurrent-tap-hold yes"
+  print "  ;; linux-dev /dev/input/by-id/usb-Kinesis_Kinesis_Adv360_360555127546-if01-event-kbd"
+  print "  ;; linux-dev /dev/input/event4"
+  print ""
+  print "  rapid-event-delay 0"
+  print "  chords-v2-min-idle-experimental 5"
+  print "  log-layer-changes no"
+  next
+}
+{ print }' "$CONFIG_DIR/kanata.kbd" > /tmp/kanata_patched.kbd && mv /tmp/kanata_patched.kbd "$CONFIG_DIR/kanata.kbd"
+
+# Insert defchordsv2-experimental block before the vim modeline
+awk '/^;; vim: set ft=lisp/{
+  print ";; input chords. pressing key1 + key2 will trigger the action"
+  print "(defchordsv2-experimental"
+  print "  ;; layer chords"
+  print "  ;; (j k) @L_leader 50 first-release ()"
+  print "  ;; (d f) @L_leader 50 first-release ()"
+  print "  ;; (s d f) @L_leader 50 first-release ()"
+  print ""
+  print "  ;; chords to type common words quickly"
+  print "  (u i)   (macro t h e spc)     50 first-release ()"
+  print "  (u i o) (macro t h i s spc)   50 first-release ()"
+  print "  (u o)   (macro t h e s e spc) 50 first-release ()"
+  print "  (m ,)   (macro a n d spc)     50 first-release ()"
+  print "  (y u)   (macro y o u spc)     50 first-release ()"
+  print "  (w a)   (macro w a s spc)     50 first-release ()"
+  print "  (m , .) (macro n o t spc)     50 first-release ()"
+  print "  (j l)  (macro S-j u l i e n spc S-l e spc S-r o u x) 50 first-release ()"
+  print "  (j k l) (macro j u l i e n . l e - r o u x S-2 u - p e c . f r) 50 first-release ()"
+  print ""
+  print "  ;; disabled below (too many accidental presses)"
+  print "  ;; (i o)   (macro t h a t spc)   50 first-release ()"
+  print "  ;; (a r)   (macro a r e spc)     50 first-release ()"
+  print "  ;; (f o)   (macro f o r spc)     50 first-release ()"
+  print "  ;; (w i)   (macro w i t h spc)   20 first-release ()"
+  print ")"
+  print ""
+}
+{ print }' "$CONFIG_DIR/kanata.kbd" > /tmp/kanata_patched.kbd && mv /tmp/kanata_patched.kbd "$CONFIG_DIR/kanata.kbd"
+
 echo "Kanata configuration set up with desired options:"
 echo "  - PC keyboard layout (kept active)"
 echo "  - Layer-taps on thumb keys (replacing standard base)"
