@@ -79,16 +79,16 @@ fi
 
 # couleur color picker
 
-if ! command -v gnomestarterpack-couleur &> /dev/null; then
-  if [[ ! -f /etc/apt/sources.list.d/gnomestarterpack.list ]] || [[ ! -f /usr/share/keyrings/gnomestarterpack.gpg ]]; then
+# if ! command -v gnomestarterpack-couleur &> /dev/null; then
+  # if [[ ! -f /etc/apt/sources.list.d/gnomestarterpack.list ]] || [[ ! -f /usr/share/keyrings/gnomestarterpack.gpg ]]; then
     # Add the GPG key
-    curl -fsSL https://apt.gnomestarterpack.com/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/gnomestarterpack.gpg
-    # Add the repository
-    echo "deb [signed-by=/usr/share/keyrings/gnomestarterpack.gpg arch=amd64] https://apt.gnomestarterpack.com questy main" | sudo tee /etc/apt/sources.list.d/gnomestarterpack.list >/dev/null
-  fi
-  sudo apt update
-  sudo apt install -y gnomestarterpack-couleur
-fi
+#     curl -fsSL https://apt.gnomestarterpack.com/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/gnomestarterpack.gpg
+#     # Add the repository
+#     echo "deb [signed-by=/usr/share/keyrings/gnomestarterpack.gpg arch=amd64] https://apt.gnomestarterpack.com questy main" | sudo tee /etc/apt/sources.list.d/gnomestarterpack.list >/dev/null
+#   fi
+#   sudo apt update
+#   sudo apt install -y gnomestarterpack-couleur
+# fi
 
 # cava audio visualizer
 
